@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(composer create-project:*)",
+      "Bash(mkdir:*)",
+      "Bash(COMPOSER_ALLOW_SUPERUSER=1 composer create-project symfony/skeleton:^7.0 . --prefer-dist --no-interaction)",
+      "Bash(ls:*)",
+      "Bash(apache2ctl:*)",
+      "Bash(sudo apache2ctl:*)",
+      "Bash(php:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": []
+  }
+}

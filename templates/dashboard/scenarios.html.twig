@@ -1,0 +1,655 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Scénarios - PI Crypto Watch{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .scenarios-hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
+            margin-bottom: 3rem;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenarios-hero::before {
+            content: '🔮';
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .scenarios-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .scenarios-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .scenario-card {
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .scenario-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-icon {
+            font-size: 2rem;
+            padding: 1rem;
+            background: rgba(0, 212, 170, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 170, 0.3);
+        }
+
+        .scenario-info h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-type {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .prediction-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .prediction-value.bullish {
+            color: #22c55e;
+        }
+
+        .prediction-value.bearish {
+            color: #ef4444;
+        }
+
+        .prediction-value.neutral {
+            color: var(--accent-warning);
+        }
+
+        .confidence-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .confidence-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .confidence-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .factors-list {
+            margin-top: 1rem;
+        }
+
+        .factor {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .factor-impact {
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .factor-impact.positive {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .factor-impact.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .twitter-feed {
+            background: var(--gradient-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .twitter-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .twitter-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .scraping-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+        }
+
+        .scraping-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        .tweet {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #1da1f2;
+            transition: all 0.3s ease;
+        }
+
+        .tweet:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateX(5px);
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tweet-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tweet-meta {
+            flex: 1;
+        }
+
+        .tweet-author {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tweet-handle {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .tweet-time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .tweet-content {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .sentiment-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .sentiment-indicator.positive {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .sentiment-indicator.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .sentiment-indicator.neutral {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .ai-analysis {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-analysis::before {
+            content: '🤖';
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .ai-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .analysis-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .analysis-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 20px;
+            color: var(--accent-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .scenarios-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<body class="scenarios-page">
+    <div class="container">
+        <div class="scenarios-hero glass-effect">
+            <h1 class="scenarios-title">🔮 Scénarios de Prédiction</h1>
+            <p class="scenarios-subtitle">Analyse prédictive basée sur l'IA et le sentiment Twitter</p>
+        </div>
+
+        <div class="scenario-grid">
+            <div class="scenario-card crypto-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">🚀</div>
+                    <div class="scenario-info">
+                        <h3>Scénario Haussier</h3>
+                        <div class="scenario-type">Prédiction 7 jours</div>
+                    </div>
+                </div>
+                
+                <div class="prediction-value bullish">$0.75 - $1.20</div>
+                
+                <div class="confidence-bar">
+                    <div class="confidence-label">
+                        <span>Niveau de confiance</span>
+                        <span>78%</span>
+                    </div>
+                    <div class="confidence-progress">
+                        <div class="confidence-fill" style="width: 78%"></div>
+                    </div>
+                </div>
+                
+                <div class="factors-list">
+                    <div class="factor">
+                        <span class="factor-impact positive">Positif</span>
+                        <span>Adoption croissante par les entreprises</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-impact positive">Positif</span>
+                        <span>Sentiment Twitter optimiste</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-impact positive">Positif</span>
+                        <span>Développements techniques majeurs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario-card crypto-card">
+                <div class="scenario-header">
+                    <div class="scenario-icon">📉</div>
+                    <div class="scenario-info">
+                        <h3>Scénario Baissier</h3>
+                        <div class="scenario-type">Prédiction 7 jours</div>
+                    </div>
+                </div>
+                
+                <div class="prediction-value bearish">$0.15 - $0.25</div>
+                
+                <div class="confidence-bar">
+                    <div class="confidence-label">
+                        <span>Niveau de confiance</span>
+                        <span>32%</span>
+                    </div>
+                    <div class="confidence-progress">
+                        <div class="confidence-fill" style="width: 32%"></div>
+                    </div>
+                </div>
+                
+                <div class="factors-list">
+                    <div class="factor">
+                        <span class="factor-impact negative">Négatif</span>
+                        <span>Retards dans le mainnet</span>
+                    </div>
+                    <div class="factor">
+                        <span class="factor-impact negative">Négatif</span>
+                        <span>Incertitudes réglementaires</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="twitter-feed glass-effect">
+            <div class="twitter-header">
+                <h2 class="twitter-title">🐦 Analyse Twitter PI Team</h2>
+                <div class="scraping-status">
+                    <div class="scraping-dot"></div>
+                    <span>Scraping actif</span>
+                </div>
+            </div>
+            
+            <div id="tweets-container">
+                <div class="tweet">
+                    <div class="tweet-header">
+                        <div class="tweet-avatar">PT</div>
+                        <div class="tweet-meta">
+                            <div class="tweet-author">PI Core Team</div>
+                            <div class="tweet-handle">@PiCoreTeam</div>
+                        </div>
+                        <div class="tweet-time">Il y a 2h</div>
+                    </div>
+                    <div class="tweet-content">
+                        🚀 Major breakthrough in PI Network scalability! Our latest consensus algorithm optimizations have increased transaction throughput by 300%. The future is looking brighter than ever! #PINetwork #Blockchain #Innovation
+                    </div>
+                    <div class="sentiment-indicator positive">
+                        📈 Sentiment Très Positif (92%)
+                    </div>
+                </div>
+
+                <div class="tweet">
+                    <div class="tweet-header">
+                        <div class="tweet-avatar">PN</div>
+                        <div class="tweet-meta">
+                            <div class="tweet-author">PI Network Official</div>
+                            <div class="tweet-handle">@PiNetworkOfficial</div>
+                        </div>
+                        <div class="tweet-time">Il y a 4h</div>
+                    </div>
+                    <div class="tweet-content">
+                        💎 Community update: We're thrilled to announce that over 50 million Pioneers have successfully completed KYC verification. This milestone brings us closer to our mainnet goals. Thank you for your patience and dedication!
+                    </div>
+                    <div class="sentiment-indicator positive">
+                        📈 Sentiment Positif (87%)
+                    </div>
+                </div>
+
+                <div class="tweet">
+                    <div class="tweet-header">
+                        <div class="tweet-avatar">PF</div>
+                        <div class="tweet-meta">
+                            <div class="tweet-author">PI Futures</div>
+                            <div class="tweet-handle">@PIFutures</div>
+                        </div>
+                        <div class="tweet-time">Il y a 6h</div>
+                    </div>
+                    <div class="tweet-content">
+                        ⚠️ Important security notice: Please be aware of fake PI applications and scams. Always verify official communications through our verified channels. Stay safe, Pioneers! #Security #PINetwork
+                    </div>
+                    <div class="sentiment-indicator neutral">
+                        ⚖️ Sentiment Neutre (65%)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-analysis glass-effect">
+            <h2 class="ai-title">🤖 Analyse IA Avancée</h2>
+            <div class="analysis-text">
+                Notre algorithme d'intelligence artificielle analyse en temps réel les tweets de la PI Team, les sentiments de la communauté, et les indicateurs techniques pour générer des prédictions précises. Les dernières données montrent une forte corrélation entre les annonces positives de l'équipe et les mouvements de prix à court terme.
+            </div>
+            <div class="analysis-tags">
+                <span class="analysis-tag">Sentiment Bullish</span>
+                <span class="analysis-tag">Volume Croissant</span>
+                <span class="analysis-tag">Adoption Massive</span>
+                <span class="analysis-tag">Innovation Technique</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate real-time tweet updates
+        const tweets = [
+            {
+                author: "PI Core Team",
+                handle: "@PiCoreTeam",
+                avatar: "PT",
+                content: "🔥 New partnership announcement coming soon! We're working with major fintech companies to integrate PI into real-world payment systems. #PINetwork #Partnerships",
+                sentiment: "positive",
+                sentimentScore: 94,
+                time: "Il y a 10min"
+            },
+            {
+                author: "PI Network Official",
+                handle: "@PiNetworkOfficial", 
+                avatar: "PN",
+                content: "📊 Weekly stats: Mining rate has stabilized, active user engagement up 15%, and app performance improved significantly. Keep mining, Pioneers!",
+                sentiment: "positive",
+                sentimentScore: 89,
+                time: "Il y a 30min"
+            },
+            {
+                author: "PI Development",
+                handle: "@PIDevelopment",
+                avatar: "PD",
+                content: "⚡ Smart contract deployment on testnet successful! Final testing phase before mainnet integration. Exciting times ahead! #SmartContracts #PINetwork",
+                sentiment: "positive",
+                sentimentScore: 96,
+                time: "Il y a 1h"
+            }
+        ];
+
+        let tweetIndex = 0;
+
+        function addNewTweet() {
+            const tweet = tweets[tweetIndex % tweets.length];
+            const container = document.getElementById('tweets-container');
+            
+            const tweetElement = document.createElement('div');
+            tweetElement.className = 'tweet';
+            tweetElement.style.opacity = '0';
+            tweetElement.style.transform = 'translateY(-20px)';
+            
+            const sentimentClass = tweet.sentiment;
+            const sentimentIcon = tweet.sentiment === 'positive' ? '📈' : 
+                                 tweet.sentiment === 'negative' ? '📉' : '⚖️';
+            const sentimentText = tweet.sentiment === 'positive' ? 'Positif' :
+                                 tweet.sentiment === 'negative' ? 'Négatif' : 'Neutre';
+            
+            tweetElement.innerHTML = `
+                <div class="tweet-header">
+                    <div class="tweet-avatar">${tweet.avatar}</div>
+                    <div class="tweet-meta">
+                        <div class="tweet-author">${tweet.author}</div>
+                        <div class="tweet-handle">${tweet.handle}</div>
+                    </div>
+                    <div class="tweet-time">${tweet.time}</div>
+                </div>
+                <div class="tweet-content">
+                    ${tweet.content}
+                </div>
+                <div class="sentiment-indicator ${sentimentClass}">
+                    ${sentimentIcon} Sentiment ${sentimentText} (${tweet.sentimentScore}%)
+                </div>
+            `;
+            
+            container.insertBefore(tweetElement, container.firstChild);
+            
+            // Animate in
+            setTimeout(() => {
+                tweetElement.style.transition = 'all 0.5s ease';
+                tweetElement.style.opacity = '1';
+                tweetElement.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // Remove oldest tweets if more than 5
+            const allTweets = container.querySelectorAll('.tweet');
+            if (allTweets.length > 5) {
+                const oldest = allTweets[allTweets.length - 1];
+                oldest.style.transition = 'all 0.3s ease';
+                oldest.style.opacity = '0';
+                oldest.style.transform = 'translateY(20px)';
+                setTimeout(() => oldest.remove(), 300);
+            }
+            
+            tweetIndex++;
+        }
+
+        // Update confidence levels based on sentiment
+        function updateScenarios() {
+            const positiveConfidence = Math.min(95, 70 + Math.random() * 20);
+            const negativeConfidence = Math.max(5, 40 - Math.random() * 20);
+            
+            const bullishFill = document.querySelector('.scenario-card:first-child .confidence-fill');
+            const bearishFill = document.querySelector('.scenario-card:last-child .confidence-fill');
+            const bullishLabel = document.querySelector('.scenario-card:first-child .confidence-label span:last-child');
+            const bearishLabel = document.querySelector('.scenario-card:last-child .confidence-label span:last-child');
+            
+            bullishFill.style.width = positiveConfidence + '%';
+            bearishFill.style.width = negativeConfidence + '%';
+            bullishLabel.textContent = Math.round(positiveConfidence) + '%';
+            bearishLabel.textContent = Math.round(negativeConfidence) + '%';
+        }
+
+        // Add new tweet every 30 seconds
+        setInterval(addNewTweet, 30000);
+
+        // Update scenarios every minute
+        setInterval(updateScenarios, 60000);
+
+        // Initial updates
+        setTimeout(addNewTweet, 5000);
+        updateScenarios();
+        
+        // Animate confidence bars on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const fills = document.querySelectorAll('.confidence-fill');
+            fills.forEach(fill => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.transition = 'width 1s ease';
+                    fill.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+{% endblock %}
+{% endblock %}

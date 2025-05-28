@@ -1,0 +1,18 @@
+# Configuration à ajouter dans /etc/apache2/sites-available/merged-config.conf
+# Section à insérer avant "ErrorLog ${APACHE_LOG_DIR}/error.log"
+
+# PIWatch Symfony Application
+Alias /piwatch /var/www/piwatch/public
+<Directory /var/www/piwatch/public>
+    Options -Indexes +FollowSymLinks
+    AllowOverride All
+    Require all granted
+    
+    # Handle Symfony routing
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /piwatch/index.php [QSA,L]
+</Directory>
+
+# Configuration HTTPS (à ajouter dans la section <VirtualHost *:443> aussi)
+# Même configuration dans la section HTTPS du fichier
