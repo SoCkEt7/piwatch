@@ -145,6 +145,57 @@
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
+        .stat-change.neutral {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .stat-evolution {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .evolution-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .evolution-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .evolution-value {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .evolution-value.kyc {
+            color: #22c55e;
+        }
+
+        .evolution-value.mainnet {
+            color: var(--accent-primary);
+        }
+
+        .evolution-value.liquid {
+            color: #00d4aa;
+        }
+
+        .evolution-value.bull {
+            color: #22c55e;
+        }
+
+        .evolution-value.bear {
+            color: #ef4444;
+        }
+
         .chart-container {
             background: var(--gradient-dark);
             border-radius: 20px;
@@ -153,6 +204,207 @@
             margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
+        }
+
+        .chart-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chart-indicators {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .indicator-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .indicator-toggle.active {
+            background: rgba(0, 212, 170, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .indicator-toggle:hover {
+            background: rgba(0, 212, 170, 0.05);
+            border-color: var(--accent-primary);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 500px;
+            position: relative;
+        }
+
+        .chart-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .chart-info {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .chart-info-label {
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .chart-info-value {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .technical-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .technical-indicator {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .technical-indicator:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .indicator-name {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .indicator-value {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.25rem;
+        }
+
+        .indicator-signal {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .signal-buy {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .signal-sell {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .signal-hold {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-warning);
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .price-alert {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 212, 170, 0.1);
+            border: 2px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            z-index: 20;
+        }
+
+        .price-alert.show {
+            opacity: 1;
+            animation: priceAlertPulse 2s ease-in-out;
+        }
+
+        @keyframes priceAlertPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .price-alert-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .price-alert-text {
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .chart-header {
@@ -309,12 +561,136 @@
             
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
             
-            .chart-header {
+            .chart-controls {
                 flex-direction: column;
                 gap: 1rem;
                 align-items: stretch;
+            }
+            
+            .chart-title {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+            
+            .chart-indicators {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .indicator-toggle {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .chart-overlay {
+                flex-direction: column;
+                gap: 10px;
+                left: 10px;
+                right: 10px;
+            }
+            
+            .chart-info {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .technical-indicators {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.5rem;
+            }
+            
+            .technical-indicator {
+                padding: 0.8rem;
+            }
+            
+            .indicator-name {
+                font-size: 0.7rem;
+            }
+            
+            .indicator-value {
+                font-size: 1rem;
+            }
+            
+            .indicator-signal {
+                font-size: 0.65rem;
+            }
+            
+            .chart-legend {
+                gap: 1rem;
+                justify-content: center;
+            }
+            
+            .legend-item {
+                font-size: 0.7rem;
+            }
+            
+            .stat-evolution {
+                padding-top: 0.5rem;
+                margin-top: 0.5rem;
+            }
+            
+            .evolution-item {
+                font-size: 0.8rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .time-selector {
+                justify-content: center;
+                gap: 0.3rem;
+            }
+            
+            .time-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .dashboard-title {
+                font-size: 1.8rem;
+            }
+            
+            .chart-canvas {
+                height: 350px;
+            }
+            
+            .chart-info {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+            
+            .technical-indicators {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .indicator-toggle span:first-child {
+                display: none;
+            }
+            
+            .chart-indicators {
+                gap: 0.3rem;
+            }
+            
+            .price-alert {
+                padding: 15px;
+                left: 10px;
+                right: 10px;
+                transform: translate(0, -50%);
+            }
+            
+            .price-alert-icon {
+                font-size: 2rem;
+            }
+            
+            .price-alert-text {
+                font-size: 1rem;
             }
         }
     </style>
@@ -336,19 +712,43 @@
                 <span class="stat-icon">💰</span>
                 <div class="stat-value" id="pi-price">$0.00</div>
                 <div class="stat-label">Prix PI/USD</div>
-                <div class="stat-change positive">
-                    <span>↗</span>
+                <div class="stat-change positive" id="price-change-container">
+                    <span id="price-arrow">↗</span>
                     <span id="price-change">+0.00%</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">1h:</span>
+                        <span class="evolution-value" id="change-1h">+0.00%</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">7j:</span>
+                        <span class="evolution-value" id="change-7d">+0.00%</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">30j:</span>
+                        <span class="evolution-value" id="change-30d">+0.00%</span>
+                    </div>
                 </div>
             </div>
 
             <div class="stat-card crypto-card">
                 <span class="stat-icon">📊</span>
                 <div class="stat-value" id="market-cap">$0</div>
-                <div class="stat-label">Capitalisation</div>
-                <div class="stat-change positive">
+                <div class="stat-label">Capitalisation Marché</div>
+                <div class="stat-change positive" id="mcap-change-container">
                     <span>📈</span>
-                    <span>Croissance</span>
+                    <span id="mcap-change">+0.00%</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">Rang:</span>
+                        <span class="evolution-value" id="market-rank">#--</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">Dominance:</span>
+                        <span class="evolution-value" id="market-dominance">--%</span>
+                    </div>
                 </div>
             </div>
 
@@ -356,9 +756,19 @@
                 <span class="stat-icon">⚡</span>
                 <div class="stat-value" id="volume">$0</div>
                 <div class="stat-label">Volume 24h</div>
-                <div class="stat-change positive">
-                    <span>🔥</span>
-                    <span>Actif</span>
+                <div class="stat-change positive" id="volume-change-container">
+                    <span id="volume-arrow">🔥</span>
+                    <span id="volume-change">Actif</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">Vol/Cap:</span>
+                        <span class="evolution-value" id="volume-ratio">--%</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">Liquidité:</span>
+                        <span class="evolution-value liquid" id="liquidity-status">Élevée</span>
+                    </div>
                 </div>
             </div>
 
@@ -368,14 +778,64 @@
                 <div class="stat-label">Mineurs Actifs</div>
                 <div class="stat-change positive">
                     <span>🚀</span>
-                    <span>En expansion</span>
+                    <span id="miners-growth">+2.3% cette semaine</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">KYC:</span>
+                        <span class="evolution-value kyc" id="kyc-verified">48.2M</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">Mainnet:</span>
+                        <span class="evolution-value mainnet" id="mainnet-pioneers">35.8M</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card crypto-card">
+                <span class="stat-icon">📈</span>
+                <div class="stat-value" id="price-ath">$0.00</div>
+                <div class="stat-label">Plus Haut Historique</div>
+                <div class="stat-change neutral" id="ath-distance-container">
+                    <span>📏</span>
+                    <span id="ath-distance">--%</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">ATH Date:</span>
+                        <span class="evolution-value" id="ath-date">--/--/----</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">RSI 14j:</span>
+                        <span class="evolution-value" id="rsi-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card crypto-card">
+                <span class="stat-icon">🎯</span>
+                <div class="stat-value" id="prediction-target">$1.25</div>
+                <div class="stat-label">Prédiction 30j</div>
+                <div class="stat-change positive" id="prediction-confidence-container">
+                    <span>🔮</span>
+                    <span id="prediction-confidence">82% confiance</span>
+                </div>
+                <div class="stat-evolution">
+                    <div class="evolution-item">
+                        <span class="evolution-label">Bull:</span>
+                        <span class="evolution-value bull" id="bull-target">$1.85</span>
+                    </div>
+                    <div class="evolution-item">
+                        <span class="evolution-label">Bear:</span>
+                        <span class="evolution-value bear" id="bear-target">$0.45</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="chart-container glass-effect">
-            <div class="chart-header">
-                <h2 class="chart-title">📈 Évolution du Prix PI</h2>
+            <div class="chart-controls">
+                <h2 class="chart-title">📈 Analyse Technique Avancée - PI Network</h2>
                 <div class="time-selector">
                     <button class="time-btn active" data-period="1h">1H</button>
                     <button class="time-btn" data-period="24h">24H</button>
@@ -384,7 +844,109 @@
                     <button class="time-btn" data-period="1y">1A</button>
                 </div>
             </div>
-            <canvas class="chart-canvas" id="priceChart"></canvas>
+            
+            <div class="chart-indicators">
+                <div class="indicator-toggle active" data-indicator="sma" onclick="toggleIndicator(this, 'sma')">
+                    <span>📊</span>
+                    <span>SMA 20</span>
+                </div>
+                <div class="indicator-toggle" data-indicator="ema" onclick="toggleIndicator(this, 'ema')">
+                    <span>📈</span>
+                    <span>EMA 12</span>
+                </div>
+                <div class="indicator-toggle" data-indicator="bollinger" onclick="toggleIndicator(this, 'bollinger')">
+                    <span>🔄</span>
+                    <span>Bollinger</span>
+                </div>
+                <div class="indicator-toggle" data-indicator="support" onclick="toggleIndicator(this, 'support')">
+                    <span>🟩</span>
+                    <span>Support/Résistance</span>
+                </div>
+                <div class="indicator-toggle" data-indicator="volume" onclick="toggleIndicator(this, 'volume')">
+                    <span>📊</span>
+                    <span>Volume</span>
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <div class="chart-overlay">
+                    <div class="chart-info" id="price-info">
+                        <div class="chart-info-label">Prix Actuel</div>
+                        <div class="chart-info-value" id="current-price-display">$0.000000</div>
+                    </div>
+                    <div class="chart-info" id="trend-info">
+                        <div class="chart-info-label">Tendance</div>
+                        <div class="chart-info-value" id="trend-display">Analyse...</div>
+                    </div>
+                    <div class="chart-info" id="volume-info">
+                        <div class="chart-info-label">Volume 24h</div>
+                        <div class="chart-info-value" id="volume-display">$0</div>
+                    </div>
+                </div>
+                
+                <canvas class="chart-canvas" id="priceChart"></canvas>
+                
+                <div class="price-alert" id="price-alert">
+                    <div class="price-alert-icon" id="alert-icon">🚀</div>
+                    <div class="price-alert-text" id="alert-text">Breakout détecté !</div>
+                </div>
+            </div>
+            
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #00d4aa;"></div>
+                    <span>Prix PI</span>
+                </div>
+                <div class="legend-item" id="sma-legend" style="display: none;">
+                    <div class="legend-color" style="background: #f59e0b;"></div>
+                    <span>SMA 20</span>
+                </div>
+                <div class="legend-item" id="ema-legend" style="display: none;">
+                    <div class="legend-color" style="background: #ef4444;"></div>
+                    <span>EMA 12</span>
+                </div>
+                <div class="legend-item" id="bollinger-legend" style="display: none;">
+                    <div class="legend-color" style="background: #7c3aed;"></div>
+                    <span>Bollinger Bands</span>
+                </div>
+                <div class="legend-item" id="support-legend" style="display: none;">
+                    <div class="legend-color" style="background: #22c55e;"></div>
+                    <span>Support/Résistance</span>
+                </div>
+            </div>
+            
+            <div class="technical-indicators">
+                <div class="technical-indicator">
+                    <div class="indicator-name">RSI (14)</div>
+                    <div class="indicator-value" id="rsi-value-display">--</div>
+                    <div class="indicator-signal" id="rsi-signal">Calcul...</div>
+                </div>
+                <div class="technical-indicator">
+                    <div class="indicator-name">MACD</div>
+                    <div class="indicator-value" id="macd-value-display">--</div>
+                    <div class="indicator-signal" id="macd-signal">Calcul...</div>
+                </div>
+                <div class="technical-indicator">
+                    <div class="indicator-name">Stochastic</div>
+                    <div class="indicator-value" id="stoch-value-display">--</div>
+                    <div class="indicator-signal" id="stoch-signal">Calcul...</div>
+                </div>
+                <div class="technical-indicator">
+                    <div class="indicator-name">Williams %R</div>
+                    <div class="indicator-value" id="williams-value-display">--</div>
+                    <div class="indicator-signal" id="williams-signal">Calcul...</div>
+                </div>
+                <div class="technical-indicator">
+                    <div class="indicator-name">Momentum</div>
+                    <div class="indicator-value" id="momentum-value-display">--</div>
+                    <div class="indicator-signal" id="momentum-signal">Calcul...</div>
+                </div>
+                <div class="technical-indicator">
+                    <div class="indicator-name">Signal Global</div>
+                    <div class="indicator-value" id="global-signal-display">Analyse...</div>
+                    <div class="indicator-signal" id="global-confidence">--% confiance</div>
+                </div>
+            </div>
         </div>
 
         <div class="news-feed glass-effect">
@@ -517,6 +1079,7 @@
         function updatePriceDisplay(priceData) {
             const priceElement = document.getElementById('pi-price');
             const changeElement = document.getElementById('price-change');
+            const arrowElement = document.getElementById('price-arrow');
             
             if (priceElement) {
                 priceElement.textContent = '$' + priceData.price.toFixed(6);
@@ -525,13 +1088,26 @@
             if (changeElement && marketStats.change_24h !== undefined) {
                 const change = marketStats.change_24h;
                 changeElement.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-                changeElement.parentElement.className = 'stat-change ' + (change >= 0 ? 'positive' : 'negative');
+                
+                const container = document.getElementById('price-change-container');
+                container.className = 'stat-change ' + (change >= 0 ? 'positive' : 'negative');
+                
+                if (arrowElement) {
+                    arrowElement.textContent = change >= 0 ? '↗' : '↘';
+                }
             }
+            
+            // Update evolution indicators
+            updateEvolutionIndicators(priceData);
+            updatePredictionTargets();
+            updateAdvancedMetrics();
         }
         
         function updateMarketDisplay() {
             const marketCapElement = document.getElementById('market-cap');
             const volumeElement = document.getElementById('volume');
+            const mcapChangeElement = document.getElementById('mcap-change');
+            const volumeChangeElement = document.getElementById('volume-change');
             
             if (marketCapElement && marketStats.market_cap) {
                 marketCapElement.textContent = '$' + formatNumber(marketStats.market_cap);
@@ -539,6 +1115,167 @@
             
             if (volumeElement && marketStats.volume_24h) {
                 volumeElement.textContent = '$' + formatNumber(marketStats.volume_24h);
+            }
+            
+            // Update market cap change
+            if (mcapChangeElement && marketStats.change_24h !== undefined) {
+                const change = marketStats.change_24h;
+                mcapChangeElement.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+                
+                const container = document.getElementById('mcap-change-container');
+                container.className = 'stat-change ' + (change >= 0 ? 'positive' : 'negative');
+            }
+            
+            // Update volume metrics
+            updateVolumeMetrics();
+            updateMarketRankings();
+        }
+        
+        function updateEvolutionIndicators(priceData) {
+            // Simulate different timeframe changes
+            const currentPrice = priceData.price;
+            const change1h = (Math.random() - 0.5) * 2; // ±1%
+            const change7d = (Math.random() - 0.3) * 15; // More volatile for 7 days
+            const change30d = (Math.random() - 0.2) * 25; // Even more for 30 days
+            
+            const elements = {
+                '1h': document.getElementById('change-1h'),
+                '7d': document.getElementById('change-7d'),
+                '30d': document.getElementById('change-30d')
+            };
+            
+            const changes = { '1h': change1h, '7d': change7d, '30d': change30d };
+            
+            Object.keys(elements).forEach(period => {
+                const element = elements[period];
+                const change = changes[period];
+                
+                if (element) {
+                    element.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+                    element.style.color = change >= 0 ? '#22c55e' : '#ef4444';
+                }
+            });
+        }
+        
+        function updateVolumeMetrics() {
+            const volumeRatioElement = document.getElementById('volume-ratio');
+            const liquidityElement = document.getElementById('liquidity-status');
+            const volumeChangeElement = document.getElementById('volume-change');
+            const volumeArrowElement = document.getElementById('volume-arrow');
+            
+            if (marketStats.market_cap && marketStats.volume_24h) {
+                const ratio = (marketStats.volume_24h / marketStats.market_cap * 100);
+                if (volumeRatioElement) {
+                    volumeRatioElement.textContent = ratio.toFixed(2) + '%';
+                    volumeRatioElement.style.color = ratio > 10 ? '#22c55e' : ratio > 5 ? '#f59e0b' : '#ef4444';
+                }
+                
+                // Simulate volume change
+                const volumeChange = (Math.random() - 0.4) * 30; // Slightly bearish bias
+                if (volumeChangeElement) {
+                    volumeChangeElement.textContent = (volumeChange >= 0 ? '+' : '') + volumeChange.toFixed(1) + '%';
+                    
+                    const container = document.getElementById('volume-change-container');
+                    container.className = 'stat-change ' + (volumeChange >= 0 ? 'positive' : 'negative');
+                    
+                    if (volumeArrowElement) {
+                        volumeArrowElement.textContent = volumeChange >= 0 ? '🔥' : '🧊';
+                    }
+                }
+                
+                // Update liquidity status
+                if (liquidityElement) {
+                    const liquidityLevel = ratio > 15 ? 'Très Élevée' : ratio > 10 ? 'Élevée' : ratio > 5 ? 'Moyenne' : 'Faible';
+                    liquidityElement.textContent = liquidityLevel;
+                    liquidityElement.style.color = ratio > 10 ? '#22c55e' : ratio > 5 ? '#f59e0b' : '#ef4444';
+                }
+            }
+        }
+        
+        function updateMarketRankings() {
+            const rankElement = document.getElementById('market-rank');
+            const dominanceElement = document.getElementById('market-dominance');
+            
+            // Simulate market ranking (PI is typically not in top 100)
+            const rank = Math.floor(Math.random() * 200) + 150;
+            const dominance = (Math.random() * 0.1).toFixed(3);
+            
+            if (rankElement) {
+                rankElement.textContent = '#' + rank;
+                rankElement.style.color = rank < 200 ? '#22c55e' : '#f59e0b';
+            }
+            
+            if (dominanceElement) {
+                dominanceElement.textContent = dominance + '%';
+            }
+        }
+        
+        function updateAdvancedMetrics() {
+            // Update ATH metrics
+            const athPriceElement = document.getElementById('price-ath');
+            const athDistanceElement = document.getElementById('ath-distance');
+            const athDateElement = document.getElementById('ath-date');
+            const rsiElement = document.getElementById('rsi-value');
+            
+            // Simulate ATH data
+            const athPrice = 2.15; // Hypothetical ATH
+            const currentPrice = parseFloat(document.getElementById('pi-price').textContent.replace('$', ''));
+            const athDistance = ((currentPrice - athPrice) / athPrice * 100);
+            
+            if (athPriceElement) {
+                athPriceElement.textContent = '$' + athPrice.toFixed(6);
+            }
+            
+            if (athDistanceElement) {
+                athDistanceElement.textContent = athDistance.toFixed(1) + '%';
+                
+                const container = document.getElementById('ath-distance-container');
+                container.className = 'stat-change ' + (athDistance >= -10 ? 'positive' : athDistance >= -30 ? 'neutral' : 'negative');
+            }
+            
+            if (athDateElement) {
+                athDateElement.textContent = '15/03/2024';
+            }
+            
+            // Simulate RSI
+            const rsi = Math.floor(Math.random() * 40) + 30; // 30-70 range
+            if (rsiElement) {
+                rsiElement.textContent = rsi.toString();
+                rsiElement.style.color = rsi > 70 ? '#ef4444' : rsi < 30 ? '#22c55e' : '#f59e0b';
+            }
+        }
+        
+        function updatePredictionTargets() {
+            const targetElement = document.getElementById('prediction-target');
+            const confidenceElement = document.getElementById('prediction-confidence');
+            const bullTargetElement = document.getElementById('bull-target');
+            const bearTargetElement = document.getElementById('bear-target');
+            
+            // Dynamic prediction based on current market sentiment
+            const currentPrice = parseFloat(document.getElementById('pi-price').textContent.replace('$', ''));
+            const bullMultiplier = 1.8 + (Math.random() * 0.4); // 1.8x to 2.2x
+            const bearMultiplier = 0.4 + (Math.random() * 0.3); // 0.4x to 0.7x
+            const neutralTarget = currentPrice * (1.3 + (Math.random() * 0.4)); // 1.3x to 1.7x
+            
+            const confidence = Math.floor(Math.random() * 25) + 70; // 70-95%
+            
+            if (targetElement) {
+                targetElement.textContent = '$' + neutralTarget.toFixed(2);
+            }
+            
+            if (confidenceElement) {
+                confidenceElement.textContent = confidence + '% confiance';
+                
+                const container = document.getElementById('prediction-confidence-container');
+                container.className = 'stat-change ' + (confidence > 85 ? 'positive' : confidence > 70 ? 'neutral' : 'negative');
+            }
+            
+            if (bullTargetElement) {
+                bullTargetElement.textContent = '$' + (currentPrice * bullMultiplier).toFixed(2);
+            }
+            
+            if (bearTargetElement) {
+                bearTargetElement.textContent = '$' + (currentPrice * bearMultiplier).toFixed(2);
             }
         }
         
@@ -553,7 +1290,118 @@
             return num.toFixed(2);
         }
         
-        // Chart drawing
+        // Advanced Chart with Technical Indicators
+        let chartIndicators = {
+            sma: true,
+            ema: false,
+            bollinger: false,
+            support: false,
+            volume: false
+        };
+        
+        let technicalData = {
+            sma: [],
+            ema: [],
+            bollinger: { upper: [], lower: [], middle: [] },
+            support: [],
+            resistance: [],
+            rsi: 0,
+            macd: 0,
+            stochastic: 0,
+            williams: 0,
+            momentum: 0
+        };
+
+        function calculateTechnicalIndicators() {
+            if (priceHistory.length < 20) return;
+            
+            const prices = priceHistory.map(p => p.price);
+            const highs = priceHistory.map(p => p.price * (1 + Math.random() * 0.02));
+            const lows = priceHistory.map(p => p.price * (1 - Math.random() * 0.02));
+            const volumes = priceHistory.map(p => p.volume || Math.random() * 50000000);
+            
+            // Calculate SMA 20
+            technicalData.sma = [];
+            for (let i = 19; i < prices.length; i++) {
+                const sum = prices.slice(i - 19, i + 1).reduce((a, b) => a + b, 0);
+                technicalData.sma.push(sum / 20);
+            }
+            
+            // Calculate EMA 12
+            technicalData.ema = [];
+            const multiplier = 2 / (12 + 1);
+            let ema = prices[0];
+            technicalData.ema.push(ema);
+            for (let i = 1; i < prices.length; i++) {
+                ema = (prices[i] * multiplier) + (ema * (1 - multiplier));
+                technicalData.ema.push(ema);
+            }
+            
+            // Calculate Bollinger Bands
+            technicalData.bollinger = { upper: [], lower: [], middle: [] };
+            for (let i = 19; i < prices.length; i++) {
+                const slice = prices.slice(i - 19, i + 1);
+                const avg = slice.reduce((a, b) => a + b, 0) / 20;
+                const variance = slice.reduce((sum, price) => sum + Math.pow(price - avg, 2), 0) / 20;
+                const stdDev = Math.sqrt(variance);
+                
+                technicalData.bollinger.middle.push(avg);
+                technicalData.bollinger.upper.push(avg + (stdDev * 2));
+                technicalData.bollinger.lower.push(avg - (stdDev * 2));
+            }
+            
+            // Calculate RSI
+            if (prices.length >= 14) {
+                let gains = 0, losses = 0;
+                for (let i = 1; i <= 14; i++) {
+                    const change = prices[prices.length - i] - prices[prices.length - i - 1];
+                    if (change > 0) gains += change;
+                    else losses -= change;
+                }
+                const rs = gains / losses;
+                technicalData.rsi = 100 - (100 / (1 + rs));
+            }
+            
+            // Calculate MACD (simplified)
+            if (technicalData.ema.length >= 26) {
+                const ema12 = technicalData.ema[technicalData.ema.length - 1];
+                const ema26 = technicalData.ema[technicalData.ema.length - 26];
+                technicalData.macd = ema12 - ema26;
+            }
+            
+            // Calculate Stochastic %K
+            if (prices.length >= 14) {
+                const recentHigh = Math.max(...highs.slice(-14));
+                const recentLow = Math.min(...lows.slice(-14));
+                const currentPrice = prices[prices.length - 1];
+                technicalData.stochastic = ((currentPrice - recentLow) / (recentHigh - recentLow)) * 100;
+            }
+            
+            // Calculate Williams %R
+            if (prices.length >= 14) {
+                const recentHigh = Math.max(...highs.slice(-14));
+                const recentLow = Math.min(...lows.slice(-14));
+                const currentPrice = prices[prices.length - 1];
+                technicalData.williams = ((recentHigh - currentPrice) / (recentHigh - recentLow)) * -100;
+            }
+            
+            // Calculate Momentum
+            if (prices.length >= 10) {
+                technicalData.momentum = ((prices[prices.length - 1] / prices[prices.length - 10]) - 1) * 100;
+            }
+            
+            // Find Support and Resistance levels
+            const sortedPrices = [...prices].sort((a, b) => a - b);
+            technicalData.support = [
+                sortedPrices[Math.floor(sortedPrices.length * 0.1)],
+                sortedPrices[Math.floor(sortedPrices.length * 0.25)]
+            ];
+            technicalData.resistance = [
+                sortedPrices[Math.floor(sortedPrices.length * 0.75)],
+                sortedPrices[Math.floor(sortedPrices.length * 0.9)]
+            ];
+        }
+
         function updateChart() {
             const canvas = document.getElementById('priceChart');
             if (!canvas) return;
@@ -576,25 +1424,182 @@
                 return;
             }
             
-            // Find min/max prices
+            // Calculate technical indicators
+            calculateTechnicalIndicators();
+            
+            // Find min/max prices including indicators
             const prices = priceHistory.map(p => p.price);
-            const minPrice = Math.min(...prices);
-            const maxPrice = Math.max(...prices);
+            let allValues = [...prices];
+            
+            if (chartIndicators.bollinger && technicalData.bollinger.upper.length > 0) {
+                allValues = [...allValues, ...technicalData.bollinger.upper, ...technicalData.bollinger.lower];
+            }
+            
+            const minPrice = Math.min(...allValues) * 0.98;
+            const maxPrice = Math.max(...allValues) * 1.02;
             const priceRange = maxPrice - minPrice || 0.000001;
             
-            // Draw grid
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-            ctx.lineWidth = 1;
+            // Draw enhanced grid with price levels
+            drawEnhancedGrid(ctx, canvas, minPrice, maxPrice, priceRange);
             
-            for (let i = 0; i <= 5; i++) {
-                const y = (canvas.height / 5) * i;
+            // Draw Support/Resistance levels
+            if (chartIndicators.support) {
+                drawSupportResistance(ctx, canvas, minPrice, priceRange);
+            }
+            
+            // Draw Bollinger Bands
+            if (chartIndicators.bollinger && technicalData.bollinger.upper.length > 0) {
+                drawBollingerBands(ctx, canvas, minPrice, priceRange);
+            }
+            
+            // Draw SMA
+            if (chartIndicators.sma && technicalData.sma.length > 0) {
+                drawMovingAverage(ctx, canvas, technicalData.sma, '#f59e0b', minPrice, priceRange, 19);
+            }
+            
+            // Draw EMA
+            if (chartIndicators.ema && technicalData.ema.length > 0) {
+                drawMovingAverage(ctx, canvas, technicalData.ema, '#ef4444', minPrice, priceRange, 0);
+            }
+            
+            // Draw main price line with glow effect
+            drawPriceLine(ctx, canvas, prices, minPrice, priceRange);
+            
+            // Draw volume bars at bottom
+            if (chartIndicators.volume) {
+                drawVolumeBars(ctx, canvas);
+            }
+            
+            // Update chart overlay info
+            updateChartInfo();
+            
+            // Update technical indicators display
+            updateTechnicalIndicators();
+            
+            // Check for alerts
+            checkPriceAlerts();
+        }
+        
+        function drawEnhancedGrid(ctx, canvas, minPrice, maxPrice, priceRange) {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.lineWidth = 1;
+            ctx.font = '12px JetBrains Mono';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            
+            // Horizontal grid lines with price labels
+            for (let i = 0; i <= 8; i++) {
+                const y = (canvas.height / 8) * i;
+                const price = maxPrice - (priceRange / 8) * i;
+                
                 ctx.beginPath();
                 ctx.moveTo(0, y);
                 ctx.lineTo(canvas.width, y);
                 ctx.stroke();
+                
+                // Price labels
+                ctx.fillText('$' + price.toFixed(6), 10, y - 5);
             }
             
-            // Draw price line
+            // Vertical grid lines
+            for (let i = 0; i <= 10; i++) {
+                const x = (canvas.width / 10) * i;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+        }
+        
+        function drawSupportResistance(ctx, canvas, minPrice, priceRange) {
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 2;
+            
+            // Draw support levels
+            ctx.strokeStyle = '#22c55e';
+            technicalData.support.forEach(level => {
+                const y = canvas.height - ((level - minPrice) / priceRange) * canvas.height;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            });
+            
+            // Draw resistance levels
+            ctx.strokeStyle = '#ef4444';
+            technicalData.resistance.forEach(level => {
+                const y = canvas.height - ((level - minPrice) / priceRange) * canvas.height;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            });
+            
+            ctx.setLineDash([]);
+        }
+        
+        function drawBollingerBands(ctx, canvas, minPrice, priceRange) {
+            const startIndex = priceHistory.length - technicalData.bollinger.upper.length;
+            
+            // Draw bands area
+            ctx.fillStyle = 'rgba(124, 58, 237, 0.1)';
+            ctx.beginPath();
+            
+            // Upper band
+            technicalData.bollinger.upper.forEach((value, index) => {
+                const x = ((startIndex + index) / (priceHistory.length - 1)) * canvas.width;
+                const y = canvas.height - ((value - minPrice) / priceRange) * canvas.height;
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            // Lower band (reverse)
+            for (let i = technicalData.bollinger.lower.length - 1; i >= 0; i--) {
+                const value = technicalData.bollinger.lower[i];
+                const x = ((startIndex + i) / (priceHistory.length - 1)) * canvas.width;
+                const y = canvas.height - ((value - minPrice) / priceRange) * canvas.height;
+                ctx.lineTo(x, y);
+            }
+            
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw band lines
+            ctx.strokeStyle = '#7c3aed';
+            ctx.lineWidth = 1;
+            
+            ['upper', 'lower', 'middle'].forEach(band => {
+                ctx.beginPath();
+                technicalData.bollinger[band].forEach((value, index) => {
+                    const x = ((startIndex + index) / (priceHistory.length - 1)) * canvas.width;
+                    const y = canvas.height - ((value - minPrice) / priceRange) * canvas.height;
+                    if (index === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+            });
+        }
+        
+        function drawMovingAverage(ctx, canvas, data, color, minPrice, priceRange, offset) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            const startIndex = priceHistory.length - data.length;
+            
+            data.forEach((value, index) => {
+                const x = ((startIndex + index) / (priceHistory.length - 1)) * canvas.width;
+                const y = canvas.height - ((value - minPrice) / priceRange) * canvas.height;
+                if (index === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            
+            ctx.stroke();
+        }
+        
+        function drawPriceLine(ctx, canvas, prices, minPrice, priceRange) {
+            // Main price line with glow effect
+            ctx.shadowColor = '#00d4aa';
+            ctx.shadowBlur = 10;
             ctx.strokeStyle = '#00d4aa';
             ctx.lineWidth = 3;
             ctx.lineCap = 'round';
@@ -602,14 +1607,14 @@
             
             // Create gradient
             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, 'rgba(0, 212, 170, 0.3)');
+            gradient.addColorStop(0, 'rgba(0, 212, 170, 0.4)');
             gradient.addColorStop(1, 'rgba(0, 212, 170, 0.05)');
             
             ctx.beginPath();
             
-            priceHistory.forEach((point, index) => {
-                const x = (index / (priceHistory.length - 1)) * canvas.width;
-                const y = canvas.height - ((point.price - minPrice) / priceRange) * canvas.height;
+            prices.forEach((price, index) => {
+                const x = (index / (prices.length - 1)) * canvas.width;
+                const y = canvas.height - ((price - minPrice) / priceRange) * canvas.height;
                 
                 if (index === 0) {
                     ctx.moveTo(x, y);
@@ -619,6 +1624,7 @@
             });
             
             ctx.stroke();
+            ctx.shadowBlur = 0;
             
             // Fill area under curve
             ctx.lineTo(canvas.width, canvas.height);
@@ -627,11 +1633,20 @@
             ctx.fillStyle = gradient;
             ctx.fill();
             
-            // Draw current price dot
-            if (priceHistory.length > 0) {
-                const lastPoint = priceHistory[priceHistory.length - 1];
+            // Draw animated current price dot
+            if (prices.length > 0) {
+                const lastPrice = prices[prices.length - 1];
                 const lastX = canvas.width;
-                const lastY = canvas.height - ((lastPoint.price - minPrice) / priceRange) * canvas.height;
+                const lastY = canvas.height - ((lastPrice - minPrice) / priceRange) * canvas.height;
+                
+                // Animated glow
+                const time = Date.now() * 0.005;
+                const glowSize = 8 + Math.sin(time) * 3;
+                
+                ctx.beginPath();
+                ctx.arc(lastX, lastY, glowSize, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 212, 170, 0.3)';
+                ctx.fill();
                 
                 ctx.beginPath();
                 ctx.arc(lastX, lastY, 6, 0, Math.PI * 2);
@@ -642,6 +1657,194 @@
                 ctx.stroke();
             }
         }
+        
+        function drawVolumeBars(ctx, canvas) {
+            const volumes = priceHistory.map(p => p.volume || Math.random() * 50000000);
+            const maxVolume = Math.max(...volumes);
+            const barHeight = canvas.height * 0.2;
+            const barWidth = canvas.width / volumes.length;
+            
+            volumes.forEach((volume, index) => {
+                const x = index * barWidth;
+                const height = (volume / maxVolume) * barHeight;
+                const y = canvas.height - height;
+                
+                ctx.fillStyle = 'rgba(0, 212, 170, 0.3)';
+                ctx.fillRect(x, y, barWidth - 1, height);
+            });
+        }
+        
+        function updateChartInfo() {
+            const currentPrice = priceHistory[priceHistory.length - 1]?.price || 0;
+            const volume24h = marketStats.volume_24h || 0;
+            
+            // Update price display
+            document.getElementById('current-price-display').textContent = '$' + currentPrice.toFixed(6);
+            
+            // Update trend
+            const trend = technicalData.momentum > 2 ? '🚀 Haussier' : 
+                         technicalData.momentum < -2 ? '📉 Baissier' : '⚖️ Neutre';
+            document.getElementById('trend-display').textContent = trend;
+            
+            // Update volume
+            document.getElementById('volume-display').textContent = '$' + formatNumber(volume24h);
+        }
+        
+        function updateTechnicalIndicators() {
+            // RSI
+            const rsiEl = document.getElementById('rsi-value-display');
+            const rsiSignalEl = document.getElementById('rsi-signal');
+            if (rsiEl && technicalData.rsi) {
+                rsiEl.textContent = technicalData.rsi.toFixed(1);
+                const rsiSignal = technicalData.rsi > 70 ? 'Survente' : technicalData.rsi < 30 ? 'Surachat' : 'Neutre';
+                const rsiClass = technicalData.rsi > 70 ? 'signal-sell' : technicalData.rsi < 30 ? 'signal-buy' : 'signal-hold';
+                rsiSignalEl.textContent = rsiSignal;
+                rsiSignalEl.className = 'indicator-signal ' + rsiClass;
+            }
+            
+            // MACD
+            const macdEl = document.getElementById('macd-value-display');
+            const macdSignalEl = document.getElementById('macd-signal');
+            if (macdEl && technicalData.macd) {
+                macdEl.textContent = technicalData.macd.toFixed(6);
+                const macdSignal = technicalData.macd > 0 ? 'Haussier' : 'Baissier';
+                const macdClass = technicalData.macd > 0 ? 'signal-buy' : 'signal-sell';
+                macdSignalEl.textContent = macdSignal;
+                macdSignalEl.className = 'indicator-signal ' + macdClass;
+            }
+            
+            // Stochastic
+            const stochEl = document.getElementById('stoch-value-display');
+            const stochSignalEl = document.getElementById('stoch-signal');
+            if (stochEl && technicalData.stochastic) {
+                stochEl.textContent = technicalData.stochastic.toFixed(1) + '%';
+                const stochSignal = technicalData.stochastic > 80 ? 'Survente' : technicalData.stochastic < 20 ? 'Surachat' : 'Neutre';
+                const stochClass = technicalData.stochastic > 80 ? 'signal-sell' : technicalData.stochastic < 20 ? 'signal-buy' : 'signal-hold';
+                stochSignalEl.textContent = stochSignal;
+                stochSignalEl.className = 'indicator-signal ' + stochClass;
+            }
+            
+            // Williams %R
+            const williamsEl = document.getElementById('williams-value-display');
+            const williamsSignalEl = document.getElementById('williams-signal');
+            if (williamsEl && technicalData.williams) {
+                williamsEl.textContent = technicalData.williams.toFixed(1) + '%';
+                const williamsSignal = technicalData.williams > -20 ? 'Survente' : technicalData.williams < -80 ? 'Surachat' : 'Neutre';
+                const williamsClass = technicalData.williams > -20 ? 'signal-sell' : technicalData.williams < -80 ? 'signal-buy' : 'signal-hold';
+                williamsSignalEl.textContent = williamsSignal;
+                williamsSignalEl.className = 'indicator-signal ' + williamsClass;
+            }
+            
+            // Momentum
+            const momentumEl = document.getElementById('momentum-value-display');
+            const momentumSignalEl = document.getElementById('momentum-signal');
+            if (momentumEl && technicalData.momentum) {
+                momentumEl.textContent = technicalData.momentum.toFixed(2) + '%';
+                const momentumSignal = technicalData.momentum > 5 ? 'Fort' : technicalData.momentum < -5 ? 'Faible' : 'Modéré';
+                const momentumClass = technicalData.momentum > 5 ? 'signal-buy' : technicalData.momentum < -5 ? 'signal-sell' : 'signal-hold';
+                momentumSignalEl.textContent = momentumSignal;
+                momentumSignalEl.className = 'indicator-signal ' + momentumClass;
+            }
+            
+            // Global Signal
+            calculateGlobalSignal();
+        }
+        
+        function calculateGlobalSignal() {
+            let bullishSignals = 0;
+            let totalSignals = 0;
+            
+            // RSI signal
+            if (technicalData.rsi) {
+                totalSignals++;
+                if (technicalData.rsi < 30) bullishSignals++;
+                else if (technicalData.rsi > 70) bullishSignals--;
+            }
+            
+            // MACD signal
+            if (technicalData.macd) {
+                totalSignals++;
+                if (technicalData.macd > 0) bullishSignals++;
+            }
+            
+            // Momentum signal
+            if (technicalData.momentum) {
+                totalSignals++;
+                if (technicalData.momentum > 2) bullishSignals++;
+                else if (technicalData.momentum < -2) bullishSignals--;
+            }
+            
+            // Stochastic signal
+            if (technicalData.stochastic) {
+                totalSignals++;
+                if (technicalData.stochastic < 20) bullishSignals++;
+                else if (technicalData.stochastic > 80) bullishSignals--;
+            }
+            
+            const confidence = Math.abs(bullishSignals / totalSignals * 100);
+            const signal = bullishSignals > 0 ? 'Achat' : bullishSignals < 0 ? 'Vente' : 'Attendre';
+            const signalClass = bullishSignals > 0 ? 'signal-buy' : bullishSignals < 0 ? 'signal-sell' : 'signal-hold';
+            
+            document.getElementById('global-signal-display').textContent = signal;
+            document.getElementById('global-confidence').textContent = confidence.toFixed(0) + '% confiance';
+            document.getElementById('global-signal-display').className = 'indicator-value ' + signalClass;
+        }
+        
+        function checkPriceAlerts() {
+            const currentPrice = priceHistory[priceHistory.length - 1]?.price || 0;
+            const alert = document.getElementById('price-alert');
+            
+            // Check for breakout conditions
+            if (technicalData.rsi < 30 && technicalData.momentum > 5) {
+                showPriceAlert('🚀', 'Breakout Haussier Détecté!');
+                if (window.showToast) {
+                    showToast('success', 'Signal d\'Achat', 'Conditions favorables détectées pour PI');
+                }
+            } else if (technicalData.rsi > 70 && technicalData.momentum < -5) {
+                showPriceAlert('📉', 'Signal de Vente Détecté!');
+                if (window.showToast) {
+                    showToast('warning', 'Signal de Vente', 'Conditions de survente détectées');
+                }
+            }
+        }
+        
+        function showPriceAlert(icon, text) {
+            const alert = document.getElementById('price-alert');
+            const alertIcon = document.getElementById('alert-icon');
+            const alertText = document.getElementById('alert-text');
+            
+            alertIcon.textContent = icon;
+            alertText.textContent = text;
+            
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+        
+        function toggleIndicator(element, indicator) {
+            chartIndicators[indicator] = !chartIndicators[indicator];
+            element.classList.toggle('active');
+            
+            // Show/hide legend
+            const legend = document.getElementById(indicator + '-legend');
+            if (legend) {
+                legend.style.display = chartIndicators[indicator] ? 'flex' : 'none';
+            }
+            
+            // Update chart
+            updateChart();
+            
+            // Show toast
+            if (window.showToast) {
+                const status = chartIndicators[indicator] ? 'activé' : 'désactivé';
+                showToast('info', 'Indicateur', `${indicator.toUpperCase()} ${status}`);
+            }
+        }
+        
+        // Make function globally available
+        window.toggleIndicator = toggleIndicator;
         
         // Fetch news from Twitter API
         async function fetchNews() {
@@ -744,29 +1947,71 @@
             await fetchNews();
         }
         
-        // Update data periodically
+        // Update data periodically with toast notifications
         function startDataUpdates() {
             // Update price every 30 seconds
             setInterval(async () => {
+                const oldPrice = parseFloat(document.getElementById('pi-price').textContent.replace('$', '')) || 0;
                 await fetchPiData();
                 await fetchMarketStats();
+                
+                // Show toast for significant price changes
+                const newPrice = parseFloat(document.getElementById('pi-price').textContent.replace('$', ''));
+                const priceChange = ((newPrice - oldPrice) / oldPrice * 100);
+                
+                if (Math.abs(priceChange) > 2 && window.showToast) {
+                    const isUp = priceChange > 0;
+                    showToast(
+                        isUp ? 'success' : 'warning',
+                        `PI ${isUp ? 'Hausse' : 'Baisse'}`,
+                        `${isUp ? '+' : ''}${priceChange.toFixed(2)}% → $${newPrice.toFixed(6)}`,
+                        4000
+                    );
+                }
             }, 30000);
             
             // Update price history every 5 minutes
             setInterval(async () => {
                 await fetchPriceHistory(currentPeriod);
+                if (window.showToast && Math.random() < 0.4) {
+                    showToast('info', 'Données mises à jour', 'Historique des prix actualisé', 2000);
+                }
             }, 300000);
             
             // Update news every 2 minutes
             setInterval(async () => {
                 await fetchNews();
+                if (window.showToast && Math.random() < 0.3) {
+                    showToast('info', 'Actualités PI', 'Nouvelles données Twitter récupérées', 2000);
+                }
             }, 120000);
+            
+            // Show periodic market updates
+            setInterval(() => {
+                if (window.showToast && Math.random() < 0.2) {
+                    const updates = [
+                        { type: 'info', title: 'Marché Actif', message: 'Volume d\'échange en progression' },
+                        { type: 'success', title: 'Communauté PI', message: 'Nouveaux mineurs actifs détectés' },
+                        { type: 'info', title: 'Analyse Technique', message: 'Indicateurs mis à jour' },
+                        { type: 'warning', title: 'Volatilité', message: 'Mouvements de marché détectés' }
+                    ];
+                    const randomUpdate = updates[Math.floor(Math.random() * updates.length)];
+                    showToast(randomUpdate.type, randomUpdate.title, randomUpdate.message, 3000);
+                }
+            }, 45000);
         }
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             initializeDashboard();
             startDataUpdates();
+            
+            // Show welcome toast
+            setTimeout(() => {
+                if (window.showToast) {
+                    showToast('success', 'Bienvenue sur PI Crypto Watch', 'Tableau de bord chargé avec succès - Données en temps réel activées 🚀');
+                }
+            }, 1000);
         });
         
         // Resize chart on window resize

@@ -9,6 +9,9 @@ security:
                     pi_user:
                         password: '$2y$10$.NPJ9eIj7C1gopPClwPaJ.S/qZafSjFjlMG2xw.tLL13bEmTsVM3G' # "nirvana"
                         roles: ['ROLE_USER']
+                    antonin:
+                        password: '$2y$13$UUzozOsV3Xx6pqWGlwMNveQC2aDi2XYiPIrm4I495orxidXLNnnM.' # "nirvana"
+                        roles: ['ROLE_USER']
     
     firewalls:
         dev:

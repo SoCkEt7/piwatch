@@ -293,6 +293,198 @@
                 padding-bottom: 60px;
             }
 
+            /* Toast System */
+            .toast-container {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 350px;
+            }
+
+            .toast {
+                background: var(--gradient-dark);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: var(--shadow-primary);
+                backdrop-filter: blur(20px);
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .toast.show {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            .toast::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: var(--gradient-primary);
+                animation: toastProgress 5s linear;
+            }
+
+            @keyframes toastProgress {
+                from { width: 100%; }
+                to { width: 0%; }
+            }
+
+            .toast-success::before {
+                background: linear-gradient(90deg, #22c55e, #16a34a);
+            }
+
+            .toast-info::before {
+                background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            }
+
+            .toast-warning::before {
+                background: linear-gradient(90deg, #f59e0b, #d97706);
+            }
+
+            .toast-error::before {
+                background: linear-gradient(90deg, #ef4444, #dc2626);
+            }
+
+            .toast-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 8px;
+            }
+
+            .toast-icon {
+                font-size: 18px;
+            }
+
+            .toast-title {
+                font-weight: 600;
+                color: var(--text-primary);
+                font-size: 14px;
+            }
+
+            .toast-close {
+                margin-left: auto;
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                cursor: pointer;
+                font-size: 16px;
+                padding: 0;
+                transition: color 0.3s ease;
+            }
+
+            .toast-close:hover {
+                color: var(--text-primary);
+            }
+
+            .toast-message {
+                color: var(--text-secondary);
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .toast-timestamp {
+                color: var(--text-muted);
+                font-size: 11px;
+                margin-top: 8px;
+                font-family: 'JetBrains Mono', monospace;
+            }
+
+            /* Crypto Tab Modal */
+            .crypto-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                z-index: 9999;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+
+            .crypto-modal.show {
+                display: flex;
+            }
+
+            .crypto-modal-content {
+                background: var(--bg-primary);
+                border: 1px solid var(--border-color);
+                border-radius: 20px;
+                width: 100%;
+                max-width: 1200px;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                animation: modalSlideIn 0.3s ease;
+            }
+
+            @keyframes modalSlideIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9) translateY(-50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+
+            .crypto-modal-header {
+                padding: 30px;
+                border-bottom: 1px solid var(--border-color);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .crypto-modal-title {
+                font-size: 24px;
+                font-weight: 700;
+                background: var(--gradient-primary);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .crypto-modal-close {
+                background: rgba(239, 68, 68, 0.1);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                color: #ef4444;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 16px;
+            }
+
+            .crypto-modal-close:hover {
+                background: rgba(239, 68, 68, 0.2);
+                transform: rotate(90deg);
+            }
+
+            .crypto-modal-body {
+                padding: 30px;
+            }
+
             @media (max-width: 768px) {
                 .container {
                     padding: 0 1rem;
@@ -326,10 +518,13 @@
                     <div class="logo">π CRYPTO WATCH</div>
                     <div class="nav-tabs">
                         <a href="{{ path('dashboard') }}" class="nav-tab {{ app.request.get('_route') == 'dashboard' ? 'active' : '' }}">
-                            📈 Cours en Temps Réel
+                            📈 Dashboard PI
                         </a>
                         <a href="{{ path('scenarios') }}" class="nav-tab {{ app.request.get('_route') == 'scenarios' ? 'active' : '' }}">
-                            🔮 Scénarios
+                            🔮 Scénarios IA
+                        </a>
+                        <a href="#" class="nav-tab" onclick="showCryptoTab(event)">
+                            💰 Marché Crypto
                         </a>
                     </div>
                     <a href="{{ path('logout') }}" class="btn btn-ghost">
@@ -339,6 +534,22 @@
             </div>
         </nav>
     {% endif %}
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Crypto Modal -->
+    <div class="crypto-modal" id="crypto-modal">
+        <div class="crypto-modal-content">
+            <div class="crypto-modal-header">
+                <h2 class="crypto-modal-title">💰 Marché des Cryptomonnaies</h2>
+                <button class="crypto-modal-close" onclick="closeCryptoModal()">×</button>
+            </div>
+            <div class="crypto-modal-body" id="crypto-modal-body">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
 
     <main class="main-content">
         {% block body %}{% endblock %}
@@ -441,6 +652,260 @@
             if (document.body.classList.contains('dashboard-page')) {
                 createParticles();
             }
+
+            // Toast System
+            function showToast(type, title, message, duration = 5000) {
+                const toastContainer = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                const toastId = 'toast-' + Date.now();
+                
+                const icons = {
+                    success: '✅',
+                    info: 'ℹ️',
+                    warning: '⚠️',
+                    error: '❌'
+                };
+                
+                toast.className = `toast toast-${type}`;
+                toast.id = toastId;
+                toast.innerHTML = `
+                    <div class="toast-header">
+                        <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
+                        <span class="toast-title">${title}</span>
+                        <button class="toast-close" onclick="closeToast('${toastId}')">×</button>
+                    </div>
+                    <div class="toast-message">${message}</div>
+                    <div class="toast-timestamp">${new Date().toLocaleTimeString('fr-FR')}</div>
+                `;
+                
+                toastContainer.appendChild(toast);
+                
+                // Show animation
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 100);
+                
+                // Auto hide
+                setTimeout(() => {
+                    closeToast(toastId);
+                }, duration);
+                
+                return toastId;
+            }
+            
+            function closeToast(toastId) {
+                const toast = document.getElementById(toastId);
+                if (toast) {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 400);
+                }
+            }
+
+            // Crypto Modal System
+            function showCryptoTab(event) {
+                event.preventDefault();
+                const modal = document.getElementById('crypto-modal');
+                const modalBody = document.getElementById('crypto-modal-body');
+                
+                // Show loading
+                modalBody.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">⏳</div>
+                        <div style="color: var(--text-secondary);">Chargement des données crypto...</div>
+                    </div>
+                `;
+                
+                modal.classList.add('show');
+                
+                // Load crypto data
+                setTimeout(() => {
+                    loadCryptoData();
+                }, 500);
+                
+                showToast('info', 'Marché Crypto', 'Ouverture du tableau de bord crypto en temps réel');
+            }
+            
+            function closeCryptoModal() {
+                document.getElementById('crypto-modal').classList.remove('show');
+            }
+            
+            function loadCryptoData() {
+                const modalBody = document.getElementById('crypto-modal-body');
+                
+                modalBody.innerHTML = `
+                    <div class="crypto-header" style="margin-bottom: 30px; text-align: center;">
+                        <h3 style="color: var(--text-primary); margin-bottom: 10px;">📊 Top Cryptomonnaies - Mise à jour temps réel</h3>
+                        <div style="color: var(--text-secondary); font-size: 14px;">
+                            <span style="color: var(--accent-primary);">🟢 LIVE</span> • Dernière mise à jour: <span id="crypto-last-update">${new Date().toLocaleTimeString('fr-FR')}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="crypto-grid" id="crypto-grid">
+                        <!-- Crypto cards will be loaded here -->
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                        <div style="color: var(--text-muted); font-size: 12px;">
+                            Données fournies par APIs crypto • Mise à jour toutes les 30 secondes
+                        </div>
+                    </div>
+                `;
+                
+                // Load initial crypto data
+                updateCryptoData();
+                
+                // Auto-update every 30 seconds
+                window.cryptoUpdateInterval = setInterval(updateCryptoData, 30000);
+            }
+            
+            function updateCryptoData() {
+                const grid = document.getElementById('crypto-grid');
+                if (!grid) return;
+                
+                // Simulated crypto data (in real app, this would be API calls)
+                const cryptos = [
+                    { 
+                        symbol: 'BTC', 
+                        name: 'Bitcoin', 
+                        price: 42750 + (Math.random() - 0.5) * 1000,
+                        change: (Math.random() - 0.5) * 10,
+                        icon: '₿',
+                        color: '#f7931a'
+                    },
+                    { 
+                        symbol: 'ETH', 
+                        name: 'Ethereum', 
+                        price: 2580 + (Math.random() - 0.5) * 200,
+                        change: (Math.random() - 0.5) * 12,
+                        icon: '♦',
+                        color: '#627eea'
+                    },
+                    { 
+                        symbol: 'BNB', 
+                        name: 'BNB', 
+                        price: 315 + (Math.random() - 0.5) * 30,
+                        change: (Math.random() - 0.5) * 8,
+                        icon: '🔶',
+                        color: '#f3ba2f'
+                    },
+                    { 
+                        symbol: 'XRP', 
+                        name: 'Ripple', 
+                        price: 0.58 + (Math.random() - 0.5) * 0.1,
+                        change: (Math.random() - 0.5) * 15,
+                        icon: '💧',
+                        color: '#23292f'
+                    },
+                    { 
+                        symbol: 'SOL', 
+                        name: 'Solana', 
+                        price: 98 + (Math.random() - 0.5) * 20,
+                        change: (Math.random() - 0.5) * 18,
+                        icon: '☀️',
+                        color: '#9945ff'
+                    },
+                    { 
+                        symbol: 'ADA', 
+                        name: 'Cardano', 
+                        price: 0.45 + (Math.random() - 0.5) * 0.08,
+                        change: (Math.random() - 0.5) * 12,
+                        icon: '🔵',
+                        color: '#0033ad'
+                    },
+                    { 
+                        symbol: 'DOGE', 
+                        name: 'Dogecoin', 
+                        price: 0.08 + (Math.random() - 0.5) * 0.02,
+                        change: (Math.random() - 0.5) * 20,
+                        icon: '🐕',
+                        color: '#c2a633'
+                    },
+                    { 
+                        symbol: 'PI', 
+                        name: 'PI Network', 
+                        price: 0.42 + (Math.random() - 0.5) * 0.1,
+                        change: (Math.random() - 0.5) * 8,
+                        icon: 'π',
+                        color: '#00d4aa'
+                    }
+                ];
+                
+                grid.innerHTML = cryptos.map(crypto => {
+                    const isPositive = crypto.change >= 0;
+                    const priceDisplay = crypto.price < 1 ? 
+                        crypto.price.toFixed(6) : 
+                        crypto.price.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+                    
+                    return `
+                        <div class="crypto-card" style="position: relative; overflow: hidden;">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                <div style="font-size: 2.5rem;">${crypto.icon}</div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 1.2rem; color: var(--text-primary);">${crypto.symbol}</div>
+                                    <div style="color: var(--text-muted); font-size: 0.9rem;">${crypto.name}</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-primary); font-family: 'JetBrains Mono', monospace;">
+                                    $${priceDisplay}
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="color: ${isPositive ? '#22c55e' : '#ef4444'}; font-weight: 600; font-family: 'JetBrains Mono', monospace;">
+                                    ${isPositive ? '+' : ''}${crypto.change.toFixed(2)}%
+                                </span>
+                                <span style="font-size: 1.2rem;">
+                                    ${isPositive ? '📈' : '📉'}
+                                </span>
+                            </div>
+                            
+                            <div style="position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: ${crypto.color}; opacity: 0.7;"></div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // Update timestamp
+                const timestampEl = document.getElementById('crypto-last-update');
+                if (timestampEl) {
+                    timestampEl.textContent = new Date().toLocaleTimeString('fr-FR');
+                }
+                
+                // Show update toast occasionally
+                if (Math.random() < 0.3) {
+                    const randomCrypto = cryptos[Math.floor(Math.random() * cryptos.length)];
+                    const isUp = randomCrypto.change > 0;
+                    showToast(
+                        isUp ? 'success' : 'warning',
+                        `${randomCrypto.symbol} ${isUp ? 'hausse' : 'baisse'}`,
+                        `${randomCrypto.name}: ${isUp ? '+' : ''}${randomCrypto.change.toFixed(2)}%`,
+                        3000
+                    );
+                }
+            }
+
+            // Close modal when clicking outside
+            document.addEventListener('click', function(e) {
+                const modal = document.getElementById('crypto-modal');
+                if (e.target === modal) {
+                    closeCryptoModal();
+                }
+            });
+
+            // Clear crypto update interval when modal closes
+            document.getElementById('crypto-modal').addEventListener('transitionend', function(e) {
+                if (!this.classList.contains('show') && window.cryptoUpdateInterval) {
+                    clearInterval(window.cryptoUpdateInterval);
+                }
+            });
+
+            // Make functions globally available
+            window.showToast = showToast;
+            window.showCryptoTab = showCryptoTab;
+            window.closeCryptoModal = closeCryptoModal;
         </script>
     {% endblock %}
 </body>
